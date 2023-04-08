@@ -21,6 +21,9 @@
 (defn insert-game [games game]
   (swap! !games assoc (:game/id game) game))
 
+(defn update-game! [game-id path & args]
+  (apply (partial (swap! !games update-in (concat [game-id] path))) args))
+
 (defn inc-phase [phase]
   (case (first phase)
     :setup [:night 1]
